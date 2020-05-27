@@ -2,45 +2,50 @@
 # 2D Chaotic Logistic Map Generator (Henon Map): Attractor and Time Series
 # Reinaldo R. Rosa - LABAC-INPE
 # Version 1.0 for CAP239-2020
+# Version 2.0 modified by Rian Koja
 
-import numpy as np
-import pandas as pd
-from numpy import sqrt
 import matplotlib.pyplot as plt
 
 
 # 2D Henon logistic map is noise-like with "a" in (1.350,1.420) and "b" in (0.210,0.310)
-
-def HenonMap(a, b, x, y):
+def henon_map(a, b, x, y):
     return y + 1.0 - a * x * x, b * x
 
 
-# Map dependent parameters
-a = 1.40
-b = 0.210
-N = 100
+def henon_series(a, b, n, x_init=0.1, y_init=0.3):
+    # Initial Condition
+    x = [x_init]
+    y = [y_init]
+    xtemp = x_init
+    ytemp = y_init
 
-# Initial Condition
-xtemp = 0.1
-ytemp = 0.3
-x = [xtemp]
-y = [ytemp]
+    for i in range(0, n):
+        xtemp, ytemp = henon_map(a, b, xtemp, ytemp)
+        x.append(xtemp)
+        y.append(ytemp)
 
-for i in range(0, N):
-    xtemp, ytemp = HenonMap(a, b, xtemp, ytemp)
-    x.append(xtemp)
-    y.append(ytemp)
+    return x, y
 
-# Plot the time series
-plot(x, y, 'b,')
-plt.title("Henon Chaotic Attractor")
-plt.ylabel("Valores de Amplitude: Y")
-plt.xlabel("Valores de Amplitude: X")
-show()
 
-# Plot the time series
-plt.plot(y)
-plt.title("Henon Chaotic Noise")
-plt.ylabel("Valores de Amplitude: Y")
-plt.xlabel("N passos no tempo")
-plt.show()
+if __name__ == '__main__':
+    # Map dependent parameters
+    aa = 1.40
+    bb = 0.210
+    NN = 100
+
+    xh, yh = henon_series(aa, bb, NN, x_init=0.1, y_init=0.3)
+    # Plot the time series
+    plt.figure()
+    plt.plot(xh, yh, 'b.')
+    plt.title("Henon Chaotic Attractor")
+    plt.ylabel("Amplitude Values: Y")
+    plt.xlabel("Amplitude Values: X")
+    plt.draw()
+
+    # Plot the time series
+    plt.figure()
+    plt.plot(yh)
+    plt.title("Henon Chaotic Noise")
+    plt.ylabel("Amplitude Values: Y")
+    plt.xlabel("N Time Steps")
+    plt.show()
