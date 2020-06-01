@@ -61,8 +61,8 @@ def getScalingExponents(timeMeasure, dataMeasure):
             res = resMajor ** 2.0 + resMinor ** 2.0
             bsIndex = i
 
-# Now we determine the boundary scale and the boundary scale's data measure, ...
-bScale = 2.0 * timeMeasure[1 - 1] / timeMeasure[nScales - bsIndex + 1 - 1] / 2.0
+    # Now we determine the boundary scale and the boundary scale's data measure, ...
+    bScale = 2.0 * timeMeasure[1 - 1] / timeMeasure[nScales - bsIndex + 1 - 1] / 2.0
     bDM = dataMeasure[nScales - bsIndex + 1 - 1]
     # ... as well as compute the unifractal dimensions using the boundary scale's index:
     # at the major 'bsIndex' scales ...
