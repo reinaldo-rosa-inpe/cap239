@@ -89,8 +89,8 @@ def getMSSByUpscaling(dx, normType = np.inf, isDFA = 1, isNormalised = 1):
     
         if (isNormalised == 1):      # Then we either normalise the R / S values, treating them as probabilities ...
             p = np.divide(R, S) / np.sum(np.divide(R, S))
-else:                        # ... or leave them unnormalised ...
-    p = np.divide(R, S)
+        else:                        # ... or leave them unnormalised ...
+            p = np.divide(R, S)
         # ... and compute the measures in the q-norms
         for k in range(1, n + 1):
             # This 'if' is needed to prevent measure blow-ups with negative values of 'q' when the probability is close to zero
@@ -99,11 +99,11 @@ else:                        # ... or leave them unnormalised ...
             
             dataMeasure[:, ji - 1] = dataMeasure[:, ji - 1] + np.power(p[k - 1], q[:, 1 - 1])
 
-# We pass from the scales ('j') to the time measure; the time measure at the scale j(nScales) (the most major one)
-# is assumed to be 2.0, while it is growing when the scale is tending to j(1) (the most minor one).
-# (The scale j(nScales)'s time measure is NOT equal to 1.0, because we reserved the highest scale for shifts
-# in the very beginning of the function.)
-timeMeasure = 2.0 * dx_len / (2 * (j + 1))
+    # We pass from the scales ('j') to the time measure; the time measure at the scale j(nScales) (the most major one)
+    # is assumed to be 2.0, while it is growing when the scale is tending to j(1) (the most minor one).
+    # (The scale j(nScales)'s time measure is NOT equal to 1.0, because we reserved the highest scale for shifts
+    # in the very beginning of the function.)
+    timeMeasure = 2.0 * dx_len / (2 * (j + 1))
     
     scales = j + 1
     
@@ -127,9 +127,9 @@ timeMeasure = 2.0 * dx_len / (2 * (j + 1))
     # ... and then compute the conjugate function 'f(alpha)' itself
     f = np.multiply(LH, q) + tau
 
-## The last preparations
-# We determine the minimum and maximum values of 'alpha' ...
-LH_min = LH[-1, 1 - 1]
+    ## The last preparations
+    # We determine the minimum and maximum values of 'alpha' ...
+    LH_min = LH[-1, 1 - 1]
     LH_max = LH[1 - 1, 1 - 1]
     # ... and find the minimum and maximum values of another multifractal characteristic, the so-called
     # generalised Hurst (or DFA) exponent 'h'. (These parameters are computed according to [2, p. 27].)
@@ -144,4 +144,4 @@ LH_min = LH[-1, 1 - 1]
                         'h_min':     h_min,
                             'h_max':     h_max}
     
-return [timeMeasure, dataMeasure, scales, stats, q]
+    return [timeMeasure, dataMeasure, scales, stats, q]
