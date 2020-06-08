@@ -28,6 +28,7 @@
 # an appropriate link is given to the original repository it was downloaded from.
 
 import numpy as np
+import sys
 
 def getMSSByUpscaling(dx, normType = np.inf, isDFA = 1, isNormalised = 1):
     ## Some initialiation
@@ -111,6 +112,8 @@ def getMSSByUpscaling(dx, normType = np.inf, isDFA = 1, isNormalised = 1):
     tau = np.zeros((nq, 1))
     log10tm = np.log10(timeMeasure)
     log10dm = np.log10(dataMeasure)
+    log10dm[log10dm == -np.inf] = sys.float_info.min
+    log10dm[log10dm == +np.inf] = sys.float_info.max
     log10tm_mean = np.mean(log10tm)
     
     # For each value of the q-norm we compute the mean 'tau' over all the scales
